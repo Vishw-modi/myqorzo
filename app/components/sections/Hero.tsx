@@ -142,7 +142,7 @@ export default function Hero() {
                 boxShadow: "0 0 8px rgba(201,165,78,0.5)",
               }}
             />
-            FDA Approved — December 2024
+            FDA Approved — December 18, 2025
           </div>
         </div>
 

@@ -9,8 +9,8 @@ const MILESTONES = [
   { year: "2019", label: "REDWOOD-HCM", color: "var(--accent-gold)", desc: "Phase 2 dose-ranging trial demonstrates proof of concept" },
   { year: "2021", label: "SEQUOIA-HCM", color: "var(--accent-blue)", desc: "Pivotal Phase 3 randomized controlled trial begins" },
   { year: "2023", label: "NDA Submission", color: "var(--accent-blue)", desc: "New Drug Application submitted with full clinical package" },
-  { year: "2024", label: "FDA Approval", color: "#059669", desc: "December approval for symptomatic obstructive HCM" },
-  { year: "2025", label: "Commercial Launch", color: "#059669", desc: "U.S. market launch with full specialty distribution" },
+  { year: "2025", label: "FDA Approval", color: "#059669", desc: "December 18 approval for symptomatic obstructive HCM" },
+  { year: "2026", label: "Commercial Launch", color: "#059669", desc: "U.S. market launch with full specialty distribution" },
 ];
 
 export default function DevelopmentTimeline() {

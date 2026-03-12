@@ -61,7 +61,7 @@ export default function Footer() {
             >
               <li>Maron BJ, et al. Circulation. 2022;145(6):e906–e937.</li>
               <li>SEQUOIA-HCM Trial. NCT05186818. ClinicalTrials.gov.</li>
-              <li>BMS MYQORZO Prescribing Information. December 2024.</li>
+              <li>BMS MYQORZO Prescribing Information. December 2025.</li>
               <li>Ommen SR, et al. J Am Coll Cardiol. 2024;83(22):2214.</li>
               <li>Industry analyst estimates. 2024–2030 market projections.</li>
             </ol>

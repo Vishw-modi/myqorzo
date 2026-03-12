@@ -12,8 +12,8 @@ export default function IntroducingMyqorzo() {
         <hr className="section__divider" style={{ margin: "2rem auto" }} />
         <p style={{ fontSize: "var(--text-body-lg)", marginBottom: "2rem", color: "var(--text-secondary)", margin: "0 auto 2rem" }}>
           MYQORZO (aficamten) is a next-generation, selective cardiac myosin
-          inhibitor developed by Bristol-Myers Squibb. Approved by the FDA in
-          December 2024, it is indicated for the treatment of symptomatic
+          inhibitor developed by Bristol-Myers Squibb. Approved by the FDA on
+          December 18, 2025, it is indicated for the treatment of symptomatic
           obstructive hypertrophic cardiomyopathy in adults with NYHA class
           II-III symptoms.
         </p>
