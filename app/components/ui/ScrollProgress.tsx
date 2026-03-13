@@ -51,16 +51,17 @@ export default function ScrollProgress() {
   return (
     <nav className="scroll-nav" aria-label="Page sections">
       {SECTIONS.map((s) => (
-        <button
-          key={s.id}
-          className={`scroll-nav__dot ${
-            activeSection === s.id ? "scroll-nav__dot--active" : ""
-          }`}
-          onClick={() => scrollTo(s.id)}
-          aria-label={`Navigate to ${s.label}`}
-          aria-current={activeSection === s.id ? "true" : undefined}
-          title={s.label}
-        />
+        <div key={s.id} className="scroll-nav__item">
+          <span className="scroll-nav__label">{s.label}</span>
+          <button
+            className={`scroll-nav__dot ${
+              activeSection === s.id ? "scroll-nav__dot--active" : ""
+            }`}
+            onClick={() => scrollTo(s.id)}
+            aria-label={`Navigate to ${s.label}`}
+            aria-current={activeSection === s.id ? "true" : undefined}
+          />
+        </div>
       ))}
     </nav>
   );

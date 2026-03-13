@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const DRUG_IMAGES = [
   { src: "/drug-1.png", alt: "MYQORZO capsules in blister packaging" },
-  { src: "/drug-2.png", alt: "MYQORZO medicine bottle" },
+  { src: "/drug-2.jpg", alt: "MYQORZO medicine bottle" },
   { src: "/drug-3.jpg", alt: "MYQORZO capsule close-up" },
 ];
 
@@ -86,7 +86,7 @@ export default function Hero() {
             transition={{ duration: 0.6 }}
             className="hero__eyebrow"
           >
-            Bristol-Myers Squibb
+            Aficamten
           </motion.p>
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
@@ -162,7 +162,7 @@ export default function Hero() {
                 boxShadow: "0 0 8px rgba(201,165,78,0.5)",
               }}
             />
-            FDA Approved — December 18, 2025
+            FDA Approved — 18th December 2025
           </motion.div>
         </div>
 
