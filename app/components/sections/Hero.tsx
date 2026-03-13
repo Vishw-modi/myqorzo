@@ -2,19 +2,19 @@
 
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 
 const DRUG_IMAGES = [
   { src: "/drug-1.png", alt: "MYQORZO capsules in blister packaging" },
   { src: "/drug-2.png", alt: "MYQORZO medicine bottle" },
-  { src: "/drug-3.png", alt: "MYQORZO capsule close-up" },
+  { src: "/drug-3.jpg", alt: "MYQORZO capsule close-up" },
 ];
 
 export default function Hero() {
   const contentRef = useRef<HTMLDivElement>(null);
   const [currentImage, setCurrentImage] = useState(0);
-  const [imageLoaded, setImageLoaded] = useState(false);
 
-  /* Staggered entrance animation */
+  /* Staggered entrance animation for text */
   useEffect(() => {
     const el = contentRef.current;
     if (!el) return;
@@ -42,19 +42,15 @@ export default function Hero() {
         htmlChild.style.transform = "translateY(0)";
       });
     });
-
-    setImageLoaded(true);
   }, []);
 
   /* Auto-rotate images */
-  const nextImage = useCallback(() => {
-    setCurrentImage((prev) => (prev + 1) % DRUG_IMAGES.length);
-  }, []);
-
   useEffect(() => {
-    const interval = setInterval(nextImage, 4000);
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % DRUG_IMAGES.length);
+    }, 5000);
     return () => clearInterval(interval);
-  }, [nextImage]);
+  }, []);
 
   return (
     <section id="hero" className="hero" aria-label="Introduction">
@@ -72,7 +68,7 @@ export default function Hero() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "1fr 1fr",
+          gridTemplateColumns: "1.1fr 0.9fr",
           gap: "4rem",
           maxWidth: "var(--content-max-width)",
           padding: "0 2rem",
@@ -84,12 +80,28 @@ export default function Hero() {
       >
         {/* Left column — Text */}
         <div ref={contentRef}>
-          <p className="hero__eyebrow">Bristol-Myers Squibb</p>
-          <h1 className="hero__title" style={{ textAlign: "left" }}>
+          <motion.p 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="hero__eyebrow"
+          >
+            Bristol-Myers Squibb
+          </motion.p>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="hero__title" 
+            style={{ textAlign: "left" }}
+          >
             MYQORZO
             <sup style={{ fontSize: "0.35em", verticalAlign: "super" }}>®</sup>
-          </h1>
-          <p
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
             className="hero__subtitle"
             style={{
               textAlign: "left",
@@ -101,10 +113,13 @@ export default function Hero() {
             myosin inhibitor, it targets the molecular engine of obstructive
             hypertrophic cardiomyopathy, offering patients a path from burden to
             function.
-          </p>
+          </motion.p>
 
           {/* Generic name */}
-          <p
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
             style={{
               fontFamily: "var(--font-data)",
               fontSize: "0.875rem",
@@ -115,16 +130,21 @@ export default function Hero() {
             }}
           >
             aficamten · Cardiac Myosin Inhibitor
-          </p>
+          </motion.p>
 
           {/* FDA Badge */}
-          <div
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
             style={{
               display: "inline-flex",
               alignItems: "center",
               gap: "0.75rem",
               padding: "0.6rem 1.5rem",
               border: "1px solid rgba(201,165,78,0.3)",
+              background: "rgba(201,165,78,0.05)",
+              backdropFilter: "blur(10px)",
               borderRadius: "100px",
               fontSize: "0.8125rem",
               color: "var(--accent-gold-light)",
@@ -143,81 +163,152 @@ export default function Hero() {
               }}
             />
             FDA Approved — December 18, 2025
-          </div>
+          </motion.div>
         </div>
 
-        {/* Right column — Drug Image Carousel */}
+        {/* Right column — Premium Drug Image Composition */}
         <div
           style={{
             position: "relative",
+            height: "500px",
             display: "flex",
-            flexDirection: "column",
             alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          {/* Image container with glow */}
+          {/* Main Display Area with Glassmorphism */}
           <div
             style={{
               position: "relative",
               width: "100%",
-              maxWidth: 420,
-              aspectRatio: "1",
-              borderRadius: "24px",
-              overflow: "hidden",
-              boxShadow: "0 20px 60px rgba(201,165,78,0.15), 0 0 80px rgba(201,165,78,0.08)",
-              border: "1px solid rgba(201,165,78,0.15)",
-              background: "linear-gradient(135deg, rgba(17,24,39,0.9) 0%, rgba(11,17,32,0.95) 100%)",
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
-            {DRUG_IMAGES.map((img, i) => (
-              <div
-                key={img.src}
+            {/* Background Glow */}
+            <div 
+              style={{
+                position: "absolute",
+                width: "120%",
+                height: "120%",
+                background: "radial-gradient(circle, rgba(201,165,78,0.15) 0%, transparent 70%)",
+                zIndex: -1,
+                filter: "blur(40px)",
+              }}
+            />
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentImage}
+                initial={{ opacity: 0, scale: 0.9, y: 20, rotateY: -10 }}
+                animate={{ opacity: 1, scale: 1, y: 0, rotateY: 0 }}
+                exit={{ opacity: 0, scale: 1.1, y: -20, rotateY: 10 }}
+                transition={{ 
+                  duration: 1, 
+                  ease: [0.16, 1, 0.3, 1] 
+                }}
                 style={{
-                  position: i === 0 ? "relative" : "absolute",
-                  inset: 0,
-                  opacity: currentImage === i ? 1 : 0,
-                  transform: currentImage === i ? "scale(1)" : "scale(1.05)",
-                  transition: "opacity 1s ease, transform 1s ease",
+                  position: "relative",
+                  width: "100%",
+                  maxWidth: "400px",
+                  aspectRatio: "1",
+                  borderRadius: "32px",
+                  overflow: "hidden",
+                  boxShadow: "0 30px 60px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.1)",
+                  background: "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%)",
+                  backdropFilter: "blur(20px)",
                 }}
               >
                 <Image
-                  src={img.src}
-                  alt={img.alt}
+                  src={DRUG_IMAGES[currentImage].src}
+                  alt={DRUG_IMAGES[currentImage].alt}
                   fill
-                  style={{ objectFit: "cover", objectPosition: "center" }}
-                  sizes="420px"
-                  priority={i === 0}
+                  style={{ 
+                    objectFit: "cover", 
+                    objectPosition: "center",
+                    filter: "contrast(1.05) brightness(1.1)",
+                  }}
+                  sizes="(max-width: 768px) 100vw, 400px"
+                  priority
                 />
-              </div>
-            ))}
+                
+                {/* Visual Overlay for Depth */}
+                <div 
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 40%)",
+                    pointerEvents: "none",
+                  }}
+                />
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Decorative Elements (Floating Images Miniatures) */}
+            <div style={{ position: "absolute", width: "100%", height: "100%", pointerEvents: "none" }}>
+              {DRUG_IMAGES.map((img, i) => (
+                <motion.div
+                  key={`mini-${i}`}
+                  animate={{
+                    y: [0, -10, 0],
+                    rotate: [0, 2, 0],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    delay: i * 0.5,
+                    ease: "easeInOut",
+                  }}
+                  style={{
+                    position: "absolute",
+                    width: "80px",
+                    height: "80px",
+                    borderRadius: "16px",
+                    overflow: "hidden",
+                    border: "1px solid rgba(255,255,255,0.1)",
+                    boxShadow: "0 10px 20px rgba(0,0,0,0.3)",
+                    opacity: 0.6,
+                    display: i === currentImage ? "none" : "block",
+                    left: i === 0 ? "-20px" : i === 1 ? "auto" : "20px",
+                    right: i === 1 ? "-20px" : "auto",
+                    top: i === 0 ? "40px" : i === 1 ? "160px" : "auto",
+                    bottom: i === 2 ? "40px" : "auto",
+                    zIndex: 1,
+                  }}
+                >
+                  <Image src={img.src} alt="" fill style={{ objectFit: "cover" }} sizes="80px" />
+                </motion.div>
+              ))}
+            </div>
           </div>
 
-          {/* Carousel dots */}
+          {/* New Premium Interaction Dots */}
           <div
             style={{
+              position: "absolute",
+              bottom: "-40px",
               display: "flex",
-              gap: "0.5rem",
-              marginTop: "1.5rem",
+              gap: "1rem",
+              alignItems: "center",
             }}
           >
             {DRUG_IMAGES.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setCurrentImage(i)}
-                aria-label={`View drug image ${i + 1}`}
                 style={{
-                  width: currentImage === i ? 24 : 8,
-                  height: 8,
-                  borderRadius: 100,
-                  background:
-                    currentImage === i
-                      ? "var(--accent-gold)"
-                      : "rgba(201,165,78,0.3)",
+                  width: currentImage === i ? "40px" : "120px",
+                  height: "4px",
+                  borderRadius: "4px",
+                  background: currentImage === i ? "var(--accent-gold)" : "rgba(255,255,255,0.1)",
                   border: "none",
                   cursor: "pointer",
-                  transition: "all 0.4s cubic-bezier(0.16,1,0.3,1)",
+                  transition: "all 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
                   padding: 0,
                 }}
+                aria-label={`Switch to image ${i + 1}`}
               />
             ))}
           </div>
